@@ -1,1 +1,3 @@
 [Adjacency Matrix Generator](https://www.reddit.com/r/dailyprogrammer/comments/3h0uki/20150814_challenge_227_hard_adjacency_matrix/)
+
+Python 3 class that takes a text file with an ASCII graph and returns an instance of an object with information about several features of the graph, including the adjacency matrix.  Contains a static method that recursively traverses graph edges.  Includes 5 example graphs and a short test script.
