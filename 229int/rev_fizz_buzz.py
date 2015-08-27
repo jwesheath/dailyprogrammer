@@ -4,29 +4,37 @@ import itertools
 def rev_fizz_buzz(file):
 
     # Set the highest divisor to consider
-    LARGEST_DIVISOR = 20
-    MAX_SEARCH = 1000
+    LARGEST_DIVISOR = 12
 
     # Read data
     with open(file, 'r') as infile:
         goal = infile.read().split('\n')
 
     # Get length of combo
-    n = ord(max([char for row in goal for char in row])) - 97 + 1
+    n = ord(max({char for row in goal for char in row})) - 97 + 1
 
-    # Generate the cartesian product of 1 through the largest divisor variable
-    combos = [x for x in itertools.product(range(1, LARGEST_DIVISOR+1), repeat = n)]
+    # Generator for cartesian products of 1:largest divisor
+    combos = (x for x in itertools.product(range(1, LARGEST_DIVISOR), repeat = n))
 
     # Check every possible combination
-    for combo in combos:
+    while True:
 
-        # Populate this list with output and check until it matches the goal combo
+        # Generate the next candidate combination
+        combo = next(combos)
+
+        # Populate check list with output and check until it matches the goal output
         check = []
 
-        # Just count
-        for i in range(MAX_SEARCH):
+        # Generator for counting
+        counter = itertools.count(1)
 
-            # Add rows to the check list
+        # Just count
+        while True:
+
+            # Get next number
+            i = next(counter)
+
+            # Add non-empty rows to the check list
             row = ''
             for divisor in combo:
                 if (i % int(divisor)) == 0 and i is not 0:
@@ -34,12 +42,9 @@ def rev_fizz_buzz(file):
             if row:
                 check.append(row)
 
-            # Stop searching if you hit the goal...
-            if check == goal:
-                break
-
-            # ... or if the list gets longer than the goal
-            if len(check) > len(goal):
+            # Stop searching as soon as the check list doesn't match the goal
+            # or it becomes the same size
+            if (len(check) > 0 and check != goal[:len(check)]) or len(check) == len(goal):
                 break
 
         # If this combo matches the goal, print it and quit
