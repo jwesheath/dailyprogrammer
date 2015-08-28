@@ -36,7 +36,7 @@ def rev_fizz_buzz(file):
             # Add non-empty rows to the check list
             row = ''
             for divisor in combo:
-                if (counter % int(divisor)) == 0 and counter is not 0:
+                if (counter % divisor) == 0 and counter is not 0:
                     row += chr(combo.index(divisor) + 97)
             if row:
                 check.append(row)
