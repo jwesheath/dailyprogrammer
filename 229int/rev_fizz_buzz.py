@@ -25,19 +25,18 @@ def rev_fizz_buzz(file):
         # Populate check list with output and check until it matches the goal output
         check = []
 
-        # Generator for counting
-        counter = itertools.count(1)
+        # Start counting
+        counter = 0
 
-        # Just count
         while True:
 
             # Get next number
-            i = next(counter)
+            counter += 1
 
             # Add non-empty rows to the check list
             row = ''
             for divisor in combo:
-                if (i % int(divisor)) == 0 and i is not 0:
+                if (counter % int(divisor)) == 0 and counter is not 0:
                     row += chr(combo.index(divisor) + 97)
             if row:
                 check.append(row)
