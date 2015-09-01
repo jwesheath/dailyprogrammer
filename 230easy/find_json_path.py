@@ -12,6 +12,7 @@ def find_json_path(this, search_phrase, trace=list()):
     return False
 
 
-with open('challenge2.txt') as infile:
+with open('challenge1.txt') as infile:
     j = json.loads(infile.read())
-    print(find_json_path(j, 'dailyprogrammer'))
+    find_json_path(j, 'dailyprogrammer')
+
