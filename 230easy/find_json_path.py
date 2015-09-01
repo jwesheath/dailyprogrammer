@@ -2,8 +2,8 @@ import json
 
 
 def find_json_path(this, search_phrase, trace=list()):
-    if type(this) is dict or type(this) is list:
-        for key, value in this.items() if type(this) is dict else enumerate(this):
+    if isinstance(this, (dict, list)):
+        for key, value in this.items() if isinstance(this, dict) else enumerate(this):
             if find_json_path(value, search_phrase, trace):
                 trace.insert(0, key)
                 return ' -> '.join([str(x) for x in trace])
@@ -14,5 +14,5 @@ def find_json_path(this, search_phrase, trace=list()):
 
 with open('challenge1.txt') as infile:
     j = json.loads(infile.read())
-    find_json_path(j, 'dailyprogrammer')
+    print(find_json_path(j, 'dailyprogrammer'))
 
