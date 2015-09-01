@@ -1,0 +1,30 @@
+{
+    "name": "William Shakespeare",
+    "birthYear" : 1564,
+    "dead" : true,
+    "deathYear" : 1616,
+    "selectedWorks" : [
+        {
+            "name" : "The Tragedy of Macbeth",
+            "written" : 1606,
+            "isItAwesome" : true
+        },
+        {
+            "name" : "Coriolanus",
+            "written" : 1608,
+            "isItAwesome" : "It's alright, but kinda fascist-y"
+        }
+    ],
+    "wife" : {
+        "name" : "Anne Hathaway",
+        "birthYear" : 1555,
+        "dead" : false,
+        "deathYear" : "Fun fact, she's a vampire"
+    },
+    "favoriteWebsites" : [
+        "dailysonneter",
+        "dailyprogrammer",
+        "vine (he's way into 6-second cat videos)"
+    ],
+    "facebookProfile" : null
+}
