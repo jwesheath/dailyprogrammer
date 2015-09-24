@@ -31,7 +31,7 @@ def closest_pair(coords):
     min_distance = min(left_closest_pair, right_closest_pair, key = itemgetter(1))
 
     split_pairs = [coord for coord in coords
-                   if abs(coord[0] - coords[mid_point][0]) < min_distance[1]]
+                   if abs(coord[0] - coords[mid_point][0])**2 < min_distance[1]]
     split_pairs = sorted(split_pairs, key = itemgetter(1))
 
     if len(split_pairs) > 1:
