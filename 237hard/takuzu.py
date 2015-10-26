@@ -2,30 +2,16 @@ import sys
 import Numberjack
 
 
-def check(solution, dim):
-    solution_rows = [tuple(solution[i:i + dim]) for i in range(0, len(solution), dim)]
-    solution_cols = zip(*solution_rows)
-    if len(set(solution_rows)) == dim and len(set(solution_cols)) == dim:
-        return True
-    return False
-
-
-def print_solution(solution, dim):
-    solution = [str(x) for x in solution]
-    solution = [solution[i:i+dim] for i in range(0, len(solution), dim)]
-    for row in solution:
-        print ' '.join(row)
-
-
 def main(arg):
 
+    # read in data, get dimension
     with open(arg, "r") as infile:
         input_grid = [list(line.strip()) for line in infile.readlines()]
     dim = len(input_grid)
     target_sum = dim / 2
-    model = Numberjack.Model()
 
-    # matrix of variables
+    # create model and a matrix of variables
+    model = Numberjack.Model()
     grid = Numberjack.Matrix(dim, dim)
 
     # set known variables
@@ -46,24 +32,20 @@ def main(arg):
             model.add(Numberjack.Sum(col[i:i + 3]) > 0)
             model.add(Numberjack.Sum(col[i:i + 3]) < 3)
 
+    # treat each row and column as a binary variable and impose the constraint that they must all be different
+    model.add(Numberjack.AllDiff([Numberjack.Sum([grid[r][c] * 2**(dim-c-1) for c in range(dim)]) for r in range(dim)]))
+    model.add(Numberjack.AllDiff([Numberjack.Sum([grid[r][c] * 2**(dim-r-1) for r in range(dim)]) for c in range(dim)]))
+
     # create solutions object
     solver = model.load("Mistral", grid)
     solver.solve()
     solution = solver.get_solution()
 
-    # if first solution is good, print it and quit, else cycle through the rest
-    if check(solution, dim):
-        print_solution(solution, dim)
-    else:
-        try:
-            while solver.getNextSolution():
-                solution = solver.get_solution()
-                if check(solution, dim):
-                    print_solution(solution, dim)
-                    break
-        except StopIteration:
-            pass
-
+    # print solution
+    solution = [str(x) for x in solution]
+    solution = [solution[i:i+dim] for i in range(0, len(solution), dim)]
+    for row in solution:
+        print ' '.join(row)
 
 if __name__ == "__main__":
     main(sys.argv[1])
