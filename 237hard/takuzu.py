@@ -32,7 +32,7 @@ def main(arg):
             model.add(Numberjack.Sum(col[i:i + 3]) > 0)
             model.add(Numberjack.Sum(col[i:i + 3]) < 3)
 
-    # treat each row and column as a binary variable and impose the constraint that they must all be different
+    # treat each row and column as a binary number and impose the constraint that they must all be different
     model.add(Numberjack.AllDiff([Numberjack.Sum([grid[r][c] * 2**(dim-c-1) for c in range(dim)]) for r in range(dim)]))
     model.add(Numberjack.AllDiff([Numberjack.Sum([grid[r][c] * 2**(dim-r-1) for r in range(dim)]) for c in range(dim)]))
 
